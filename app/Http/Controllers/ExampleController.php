@@ -11,7 +11,7 @@ class ExampleController extends Controller
     }
 
     function cv() {
-        // logic
+        
         return view('cv');
     }
 }
