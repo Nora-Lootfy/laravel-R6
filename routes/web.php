@@ -90,6 +90,4 @@ Route::get('goodbye', function () {
 Route::post('data', function() {
     return "data received";
 })->name('data');
-
-
-
+?>
