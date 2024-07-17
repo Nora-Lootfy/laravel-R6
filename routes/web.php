@@ -13,6 +13,8 @@ Route::get('login', [ExampleController::class, 'login']);
 Route::post('login', [ExampleController::class, 'receive'])->name('data');
 
 
+
+
 Route::get('cv', [ExampleController::class, 'cv']);
 
 
