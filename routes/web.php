@@ -2,20 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\CarController;
+
+
+Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');
+Route::post('cars', [CarController::class, 'store'])->name('cars.store');
 
 
 Route::get('login', [ExampleController::class, 'login']);
+Route::post('login', [ExampleController::class, 'receive'])->name('data');
+
+
 Route::get('cv', [ExampleController::class, 'cv']);
+
 
 Route::get('', function () {
     return view('welcome');
 });
 
-Route::get('', function () {
-    // return view('welcome');
-    // 
-    // 
-});
+// Route::post('cars', [CarController::class, 'store'])->name('cars.store');
+
 
 
 
@@ -86,10 +92,6 @@ Route::get('goodbye', function () {
     return "goodbye to laravel";
 })->name('g');
 
-
-Route::post('data', function() {
-    return "data received";
-})->name('data');
 
 
 
