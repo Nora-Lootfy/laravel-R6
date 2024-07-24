@@ -68,7 +68,19 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $request ==> data to be updated
+        // $id 
+
+        $data = [
+            'carTitle' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'published' => isset($request->published),
+        ];
+
+        Car::where('id', $id)->update($data);
+
+        return "data updated successfully";
     }
 
     /**
@@ -76,6 +88,6 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return 'delete page';
     }
 }

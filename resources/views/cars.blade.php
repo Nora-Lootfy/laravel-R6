@@ -32,6 +32,7 @@
               <th scope="col">Description</th>
               <th scope="col">Published</th>
               <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +43,7 @@
               <td>{{$car['description']}}</td>
               <td>{{$car['published']}}</td>
               <td><a href="{{route('cars.edit', $car['id'])}}">Edit</a></td>
+              <td><a href="{{route('cars.destroy', $car['id'])}}" onclick="confirm('Are you sure you want to delete?')">Delete</a></td>
             </tr>
             @endforeach
           </tbody>
