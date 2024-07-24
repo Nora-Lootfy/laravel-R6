@@ -41,7 +41,7 @@ class CarController extends Controller
             'published' => isset($request->published),
         ]);
 
-        return "Data added successfully";
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class CarController extends Controller
 
         Car::where('id', $id)->update($data);
 
-        return "data updated successfully";
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -88,6 +88,14 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        return 'delete page';
+        // softDelete
+        Car::where('id', $id)->delete();
+        return redirect()->route('cars.index');
+    }
+
+    public function showDeleted() {
+        $cars =  Car::onlyTrashed()->get();
+
+        return view('trashedCars', compact('cars'));
     }
 }
