@@ -29,13 +29,13 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="BMW" class="form-control py-2" name="title" />
+              <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" />
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
             <div class="col-md-10">
-              <input type="number" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" />
+              <input type="text" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" />
             </div>
           </div>
           <div class="form-group mb-3 row">
@@ -48,7 +48,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" />
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" value="1" />
             </div>
           </div>
           <div class="text-md-end">

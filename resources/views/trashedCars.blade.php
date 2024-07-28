@@ -31,7 +31,7 @@
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Published</th>
-              <th scope="col">Edit</th>
+              <th scope="col">Restore</th>
               <th scope="col">Permenant Delete</th>
             </tr>
           </thead>
@@ -42,8 +42,20 @@
               <td>{{$car['price']}}</td>
               <td>{{$car['description']}}</td>
               <td>{{$car['published']}}</td>
-              <td><a href="#">Edit</a></td>
-              <td><a href="#">Delete</a></td>
+              <td>
+                <form action="{{route('cars.restore', $car['id'])}}" method="post">
+                  @csrf
+                  @method('patch')
+                  <button type="submit" class="btn btn-link m-0 p-0">Restore</button>
+                </form>
+              </td>
+              <td>
+              <form action="{{route('cars.forceDelete', $car['id'])}}" method="post">
+                  @csrf
+                  @method('delete')
+                  <button type="submit" class="btn btn-link m-0 p-0">Delete</button>
+                </form>
+              </td>
             </tr>
             @endforeach
           </tbody>
