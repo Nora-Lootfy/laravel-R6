@@ -29,26 +29,35 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" />
+              <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" value="{{old('carTitle')}}" />
+              @error('carTitle')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
             <div class="col-md-10">
-              <input type="text" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" />
+              <input type="text" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" value="{{old('price')}}" />
+              @error('price')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Description:</label>
             <div class="col-md-10">
-              <textarea id="" cols="30" rows="5" class="form-control py-2" name="description"></textarea>
+              <textarea id="" cols="30" rows="5" class="form-control py-2" name="description">{{old('description')}}</textarea>
+              @error('description')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <hr>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" value="1" />
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" value="1" @checked(old('published')) />
             </div>
           </div>
           <div class="text-md-end">

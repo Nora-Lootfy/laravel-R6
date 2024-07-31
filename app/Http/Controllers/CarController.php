@@ -33,7 +33,8 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-      
+        //  logic to upload image in public/assets/images
+
         $data = $request->validate([
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
@@ -51,7 +52,7 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $cars = Car::findOrFail($id)
     }
 
     /**
@@ -72,13 +73,14 @@ class CarController extends Controller
     {
         // $request ==> data to be updated
         // $id 
-
-        $data = [
-            'carTitle' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'published' => isset($request->published),
-        ];
+       
+        $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000',
+            'price' => 'required',
+        ]);
+        
+        $data['published'] = isset($request->published);
 
         Car::where('id', $id)->update($data);
 

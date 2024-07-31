@@ -16,17 +16,9 @@ Route::prefix('cars')->group(function() {
     Route::get('trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
     Route::patch('{id}', [CarController::class, 'restore'])->name('cars.restore');
     Route::delete('{id}', [CarController::class, 'forceDelete'])->name('cars.forceDelete');
+    
 }); 
 
 
-// Route::resource('cars', CarController::class);
-// get: show data
-// post: submit new data to server
-// put: update data in server
-// patch
-// delete: 
-
-
-// Route::get('test/{id}', function($id) {
-
-// });
+Route::get('uploadForm', [ExampleController::class, 'uploadForm']);
+Route::post('upload', [ExampleController::class, 'upload'])->name('upload');

@@ -30,7 +30,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="BMW" class="form-control py-2" name="title" value="{{$car->carTitle}}" />
+              <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" value="{{$car->carTitle}}" />
             </div>
           </div>
           <div class="form-group mb-3 row">
@@ -49,7 +49,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked($car->published) />
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked(old('published', $car->published)) />
             </div>
           </div>
           <div class="text-md-end">
