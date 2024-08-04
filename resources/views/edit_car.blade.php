@@ -49,7 +49,8 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked(old('published', $car->published)) />
+              <input type="hidden" name="published" value="0"> 
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" value="1" @checked(old('published', $car->published)) />
             </div>
           </div>
           <div class="text-md-end">

@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\ClassController;
 
 
 Route::prefix('cars')->group(function() {
@@ -22,3 +21,5 @@ Route::prefix('cars')->group(function() {
 
 Route::get('uploadForm', [ExampleController::class, 'uploadForm']);
 Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
+
+Route::get('index', [ExampleController::class, 'index']);

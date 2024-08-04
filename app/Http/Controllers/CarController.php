@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Http\Request;
+use App\Traits\Common;
 
 class CarController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -39,10 +41,12 @@ class CarController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
             'price' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'published' => 'boolean'
         ]);
-        
-        $data['published'] = isset($request->published);
-        
+
+        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
         Car::create($data);
         return redirect()->route('cars.index');
     }
@@ -61,7 +65,7 @@ class CarController extends Controller
     public function edit(string $id)
     {
         // get data of car to be updated
-        // select 
+        // select
         $car = Car::findOrFail($id);
         return view('edit_car', compact('car'));
     }
@@ -72,14 +76,19 @@ class CarController extends Controller
     public function update(Request $request, string $id)
     {
         // $request ==> data to be updated
-        // $id 
-       
+        // $id
+
         $data = $request->validate([
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
             'price' => 'required',
+            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
         ]);
-        
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        }
+
         $data['published'] = isset($request->published);
 
         Car::where('id', $id)->update($data);
@@ -97,19 +106,24 @@ class CarController extends Controller
         return redirect()->route('cars.index');
     }
 
-    public function showDeleted() {
-        $cars =  Car::onlyTrashed()->get();
+    public function showDeleted()
+    {
+        $cars = Car::onlyTrashed()->get();
 
         return view('trashedCars', compact('cars'));
     }
 
-    public function restore(string $id) {
+    public function restore(string $id)
+    {
         Car::where('id', $id)->restore();
         return redirect()->route('cars.showDeleted');
     }
 
-    public function forceDelete(string $id) {
+    public function forceDelete(string $id)
+    {
         Car::where('id', $id)->forceDelete();
         return redirect()->route('cars.index');
     }
+
+
 }
