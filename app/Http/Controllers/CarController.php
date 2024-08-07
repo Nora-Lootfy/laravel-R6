@@ -17,7 +17,7 @@ class CarController extends Controller
         // get all cars from database
         // return view all cars, cars data
         // select * from cars;
-        $cars = Car::get();
+        $cars = Car::latest()->take(3)->get();
 
         return view('cars', compact('cars'));
     }
