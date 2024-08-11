@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Http\Request;
+use App\Traits\Common;
 
 class CarController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -15,7 +17,7 @@ class CarController extends Controller
         // get all cars from database
         // return view all cars, cars data
         // select * from cars;
-        $cars = Car::get();
+        $cars = Car::latest()->take(3)->get();
 
         return view('cars', compact('cars'));
     }
@@ -33,15 +35,20 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        Car::create([
-            // 'k' => 'v'
-            'carTitle' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'published' => isset($request->published),
+        //  logic to upload image in public/assets/images
+
+        $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000',
+            'price' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'published' => 'boolean'
         ]);
 
-        return "Data added successfully";
+        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+        Car::create($data);
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -49,16 +56,16 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $cars = Car::findOrFail($id)
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
         // get data of car to be updated
-        // select 
+        // select
         $car = Car::findOrFail($id);
         return view('edit_car', compact('car'));
     }
@@ -68,14 +75,55 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $request ==> data to be updated
+        // $id
+
+        $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000',
+            'price' => 'required',
+            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        }
+
+        $data['published'] = isset($request->published);
+
+        Car::where('id', $id)->update($data);
+
+        return redirect()->route('cars.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        // softDelete
+        Car::where('id', $id)->delete();
+        return redirect()->route('cars.index');
     }
+
+    public function showDeleted()
+    {
+        $cars = Car::onlyTrashed()->get();
+
+        return view('trashedCars', compact('cars'));
+    }
+
+    public function restore(string $id)
+    {
+        Car::where('id', $id)->restore();
+        return redirect()->route('cars.showDeleted');
+    }
+
+    public function forceDelete(string $id)
+    {
+        Car::where('id', $id)->forceDelete();
+        return redirect()->route('cars.index');
+    }
+
+
 }
