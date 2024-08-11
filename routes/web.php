@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\\Http\\Controllers'], function () {
@@ -28,3 +29,16 @@ Route::group(['namespace' => 'App\\Http\\Controllers'], function () {
 });
 
 
+Route::get('testOneToOne', [ExampleController::class, 'test']);
+
+
+Route::get('/download', function (Illuminate\Http\Request $request) {
+    $file = $request->input('file');
+    $path = public_path('assets/images/' . $file);
+
+    if (file_exists($path)) {
+        return response()->download($path);
+    } else {
+        abort(404, 'File not found');
+    }
+});
