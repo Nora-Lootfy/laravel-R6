@@ -47,13 +47,13 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
             <div class="col-md-10">
-              <select name="" id="" class="form-control">
+              <select name="category_id" id="" class="form-control">
                 <option value="">Select Category</option>
               @foreach($categories as $category)
-                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                <option value="{{$category->id}}" @selected(old('category_id') == $category->id)>{{$category->category_name}}</option>
               @endforeach
               </select>
-              @error('price')
+              @error('category_id')
                 <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>

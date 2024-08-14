@@ -31,6 +31,7 @@
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Published</th>
+              <th scope="col">Category</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
             </tr>
@@ -42,6 +43,7 @@
               <td>{{$car['price']}}</td>
               <td>{{$car['description']}}</td>
               <td>{{$car['published']}}</td>
+              <td>{{$car->category->category_name}}</td>
               <td><a href="{{route('cars.edit', $car['id'])}}">Edit</a></td>
               <td>
                 <form action="{{route('cars.destroy', $car->id)}}" method="POST">

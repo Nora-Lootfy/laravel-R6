@@ -18,7 +18,9 @@ class CarController extends Controller
         // get all cars from database
         // return view all cars, cars data
         // select * from cars;
-        $cars = Car::latest()->get();
+        $cars = Car::with('category')->get();
+
+        // dd($cars);
 
         return view('cars', compact('cars'));
     }
@@ -38,16 +40,19 @@ class CarController extends Controller
     public function store(Request $request)
     {
         //  logic to upload image in public/assets/images
+        // dd($request->all());
 
         $data = $request->validate([
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
             'price' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'published' => 'boolean'
+            'published' => 'boolean',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+
+        $data['image'] = $this->uploadFile($request->image, 'assets/images/cars');
 
         Car::create($data);
         return redirect()->route('cars.index');
@@ -58,7 +63,7 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        // $cars = Car::findOrFail($id)
+        // $car = Car::findOrFail($id)
     }
 
     /**
@@ -68,8 +73,9 @@ class CarController extends Controller
     {
         // get data of car to be updated
         // select
+        $categories = Category::select('id', 'category_name')->get();
         $car = Car::findOrFail($id);
-        return view('edit_car', compact('car'));
+        return view('edit_car', compact('car', 'categories'));
     }
 
     /**
@@ -85,10 +91,11 @@ class CarController extends Controller
             'description' => 'required|string|max:1000',
             'price' => 'required',
             'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+            $data['image'] = $this->uploadFile($request->image, 'assets/images/cars');
         }
 
         $data['published'] = isset($request->published);
