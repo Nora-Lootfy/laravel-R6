@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,3 +55,5 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('contact-us', [ContactController::class, 'contactForm'])->name('contactForm');
+Route::post('contact-us', [ContactController::class, 'sendEmail'])->name('sendEmail');
