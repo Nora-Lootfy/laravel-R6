@@ -11,30 +11,31 @@ Route::get('', function () {
 Route::get('contact-us', [ExampleController::class, 'login']);
 Route::post('contact-us', [ExampleController::class, 'receive'])->name('data');
 
-Route::group(['namespace' => 'App\\Http\\Controllers'], function () {
-    //  CarController routes
-    Route::resource('cars', 'CarController')->middleware('verified');
-    Route::group([
-        'prefix' => 'cars',
-        'as' => 'cars.',
-        'controller' => 'CarController',
-    ], function () {
-        Route::get('trashed/get', 'showDeleted')->name('showDeleted');
-        Route::patch('{car}', 'restore')->name('restore');
-        Route::put('{car}', 'update')->name('update');
-        Route::delete('{car}/delete', 'forceDelete')->name('forceDelete');
-    });
+// Route::group(['namespace' => 'App\\Http\\Controllers'], function () {
+//     //  CarController routes
+//     Route::resource('cars', 'CarController')->middleware('verified');
+//     Route::group([
+//         'prefix' => 'cars',
+//         'as' => 'cars.',
+//         'controller' => 'CarController',
+//     ], function () {
+//         Route::get('trashed/get', 'showDeleted')->name('showDeleted');
+//         Route::patch('{car}', 'restore')->name('restore');
+//         Route::put('{car}', 'update')->name('update');
+//         Route::delete('{car}/delete', 'forceDelete')->name('forceDelete');
+//     });
 
-    // ExampleController routes
-    Route::group([
-        'controller' => 'ExampleController',
-    ], function () {
-        Route::get('uploadForm', 'uploadForm');
-        Route::post('upload', 'upload')->name('upload');
-        Route::get('index', 'index');
-        Route::get('about', 'about');
-    });
-});
+//     // ExampleController routes
+//     Route::group([
+//         'controller' => 'ExampleController',
+//     ], function () {
+//         Route::get('uploadForm', 'uploadForm');
+//         Route::post('upload', 'upload')->name('upload');
+//         Route::get('index', 'index');
+//         Route::get('about', 'about');
+//     });
+// });
+
 
 
 Route::get('testOneToOne', [ExampleController::class, 'test']);

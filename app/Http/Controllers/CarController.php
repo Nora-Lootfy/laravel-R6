@@ -15,6 +15,7 @@ class CarController extends Controller
      */
     public function index()
     {
+        // dd(session('test'));
         // get all cars from database
         // return view all cars, cars data
         // select * from cars;
@@ -30,6 +31,10 @@ class CarController extends Controller
      */
     public function create()
     {
+        // session()->flush();
+        session()->flash('test', 'First Laravel session');
+
+
         $categories = Category::select('id', 'category_name')->get();
         return view('add_car', compact('categories'));
     }
@@ -55,7 +60,7 @@ class CarController extends Controller
         $data['image'] = $this->uploadFile($request->image, 'assets/images/cars');
 
         Car::create($data);
-        return redirect()->route('cars.index');
+        return redirect()->route('cars.index')->with('content', 'Car added successfully');
     }
 
     /**
@@ -71,6 +76,7 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
+        dd(session('test'));
         // get data of car to be updated
         // select
         $categories = Category::select('id', 'category_name')->get();

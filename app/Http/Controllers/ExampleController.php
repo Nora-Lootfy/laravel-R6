@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 class ExampleController extends Controller
 {
     public function login() {
+        session()->put('test', 'First Laravel session');
+        dd(session('test'));
         return view('login');
     }
 
@@ -48,6 +50,8 @@ class ExampleController extends Controller
 
     public function test() {
         // dd(Student::find(1)?->phone->phone_number);
+        dd(session('test'));
+
         dd(
             DB::table('students')
             ->join('phones', 'phones.id', '=', 'students.phone_id')

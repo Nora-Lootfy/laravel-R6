@@ -23,7 +23,8 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Cars</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">{{__('cars.indexHeading')}}</h2>
+        <div>{{session('car')}}</div>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">

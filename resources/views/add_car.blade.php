@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LaravelLocalization::getCurrentLocale()}}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
   <meta charset="UTF-8" />
@@ -23,25 +23,25 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Add Car</h2>
+        <a href="{{ LaravelLocalization::getLocalizedURL('en') }}">English</a>
+        <a href="{{ LaravelLocalization::getLocalizedURL('ar') }}">Arabic</a>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">{{ __('cars.addHeading') }}</h2>
         <form action="{{route('cars.store')}}" method="POST" class="px-md-5" enctype="multipart/form-data">
-          @csrf
+        @csrf
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">
               <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" value="{{old('carTitle')}}" />
               @error('carTitle')
                 <div class="alert alert-warning">{{$message}}</div>
-              @enderror
+             @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
             <div class="col-md-10">
               <input type="text" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" value="{{old('price')}}" />
-              @error('price')
-                <div class="alert alert-warning">{{$message}}</div>
-              @enderror
+             
             </div>
           </div>
           <div class="form-group mb-3 row">
@@ -53,18 +53,14 @@
                 <option value="{{$category->id}}" @selected(old('category_id') == $category->id)>{{$category->category_name}}</option>
               @endforeach
               </select>
-              @error('category_id')
-                <div class="alert alert-warning">{{$message}}</div>
-              @enderror
+              
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Description:</label>
             <div class="col-md-10">
               <textarea id="" cols="30" rows="5" class="form-control py-2" name="description">{{old('description')}}</textarea>
-              @error('description')
-                <div class="alert alert-warning">{{$message}}</div>
-              @enderror
+             
             </div>
           </div>
           <hr>
@@ -78,9 +74,7 @@
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Image:</label>
             <div class="col-md-10">
               <input type="file" class="form-input" style="padding: 0.7rem;" name="image" />
-              @error('image')
-                <div class="alert alert-warning">{{$message}}</div>
-              @enderror
+             
             </div>
           </div>
           <div class="text-md-end">
