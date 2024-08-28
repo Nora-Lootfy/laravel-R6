@@ -10,7 +10,7 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){ 
-        Route::group(['middleware' => 'verified'], function () {
+        Route::group([], function () {
             //  CarController routes
             Route::resource('cars', CarController::class);
             Route::group([

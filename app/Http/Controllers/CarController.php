@@ -15,6 +15,8 @@ class CarController extends Controller
      */
     public function index()
     {
+        $categories = Category::with('cars')->get();
+        dd($categories);
         // dd(session('test'));
         // get all cars from database
         // return view all cars, cars data

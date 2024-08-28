@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', function () {
@@ -58,3 +59,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('contact-us', [ContactController::class, 'contactForm'])->name('contactForm');
 Route::post('contact-us', [ContactController::class, 'sendEmail'])->name('sendEmail');
+
+
+Route::get('auth/{driver}/redirect', [SocialController::class, 'redirect'])->name('socialLogin');
+Route::get('auth/github/callback', [SocialController::class, 'callback']);
